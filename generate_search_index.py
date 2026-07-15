@@ -25,6 +25,7 @@ def generate_config():
     config_lines = [
         '[input]',
         f'base_directory = "{OUTPUTDIR}"',
+        'html_selector = "article"',
         '',
     ]
 
