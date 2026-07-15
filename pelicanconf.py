@@ -6,7 +6,7 @@ import os
 AUTHOR = 'Daily Security'
 SITENAME = '去社会安全'
 SITEDESCRIPTION = '去社会安全资讯 — 漏洞、工具、技术与新闻'
-SITEURL = 'https://fsocietys.com'
+SITEURL = 'https://daily-security.xunpeijie.workers.dev'
 
 PATH = 'content'
 
@@ -29,7 +29,7 @@ M_CSS_FILES = [
 
 M_BLOG_NAME = SITENAME
 M_BLOG_DESCRIPTION = SITEDESCRIPTION
-M_BLOG_URL = 'https://fsocietys.com'
+M_BLOG_URL = 'https://daily-security.xunpeijie.workers.dev'
 
 M_FAVICON = ('images/favicon.png', 'image/png')
 

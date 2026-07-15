@@ -882,7 +882,7 @@ base_directory = "/Users/fsociety/code/daily-security/output"
   path = "posts/2026/07/about/index.html"
 
 [[input.files]]
-  title = "TrainSec Academy — 专业网络安全在线培训 | 去社会安全"
+  title = "知识星球付费模块 TrainSec academy | 去社会安全"
   url = "/posts/2026/07/trainsec/"
   path = "posts/2026/07/trainsec/index.html"
 
