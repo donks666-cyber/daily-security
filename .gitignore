@@ -5,3 +5,10 @@ __pycache__/
 venv/
 .venv/
 search-index.st
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
