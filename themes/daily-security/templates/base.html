@@ -24,6 +24,7 @@
   {% if M_THEME_COLOR %}
   <meta name="theme-color" content="{{ M_THEME_COLOR }}" />
   {% endif %}
+  <meta property="og:locale" content="{{ DEFAULT_LANG|replace('-', '_') }}" />
   {% block meta %}
   {% endblock meta %}
   {% if not M_DISABLE_SOCIAL_META_TAGS %}

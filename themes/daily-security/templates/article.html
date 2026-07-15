@@ -10,8 +10,30 @@
 
 {% block head_links %}
   {{- super() -}}
-  {# don't mind me, I'm just fixing whitespace from the previous line #}
   <link rel="canonical" href="{{ article.url|format_siteurl|e }}" />
+  <meta property="article:published_time" content="{{ article.date.isoformat() }}" />
+  {% if article.modified %}
+  <meta property="article:modified_time" content="{{ article.modified.isoformat() }}" />
+  {% endif %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": {{ article.title|tojson }},
+    "url": "{{ article.url|format_siteurl|e }}",
+    "datePublished": "{{ article.date.isoformat() }}"
+    {%- if article.modified %},
+    "dateModified": "{{ article.modified.isoformat() }}"
+    {%- endif %},
+    "author": {
+      "@type": "Person",
+      "name": "{{ article.author if article.author else AUTHOR|e }}"
+    }
+    {%- if article.summary %},
+    "description": {{ article.summary|striptags|tojson }}
+    {%- endif %}
+  }
+  </script>
 {% endblock %}
 
 {% block meta %}

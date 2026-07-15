@@ -44,7 +44,7 @@ CATEGORY_FEED_ATOM = 'feeds/{slug}.atom.xml'
 
 DEFAULT_PAGINATION = 10
 
-STATIC_PATHS = ['images', 'extras', 'search-index.st']
+STATIC_PATHS = ['images', 'extras', 'search-index.st', 'robots.txt', 'sitemap.xml']
 ARTICLE_PATHS = ['posts']
 PAGE_PATHS = ['pages']
 
