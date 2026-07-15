@@ -15,7 +15,7 @@ TIMEZONE = 'Asia/Shanghai'
 DEFAULT_LANG = 'en'
 
 DATE_FORMATS = {
-    'en': ('en_US.UTF-8', '%b %d, %Y'),
+    'en': '%b %d, %Y',
 }
 
 THEME = 'themes/daily-security'
