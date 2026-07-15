@@ -102,7 +102,7 @@ and <a href="http://mcss.mosra.cz" target="_blank">m.css</a> (customized)
 <script src="{{ 'static/js/stork.js'|format_siteurl|e }}"></script>
 <script>
     stork.initialize("{{ 'static/js/stork.wasm'|format_siteurl|e }}")
-    stork.downloadIndex("sitesearch", "{{ 'search-index.st'|format_siteurl|e }}")
+    stork.downloadIndex("sitesearch", "{{ 'search-index.st'|format_siteurl|e }}", { minimumQueryLength: 1 })
     stork.attach("sitesearch")
 </script>
 <script>
