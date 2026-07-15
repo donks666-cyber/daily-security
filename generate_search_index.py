@@ -86,11 +86,9 @@ def build_index():
         return False
     return True
 
-def copy_to_extras():
-    extras_dir = os.path.join(BASEDIR, 'content', 'extras')
-    os.makedirs(extras_dir, exist_ok=True)
-    dest = os.path.join(extras_dir, 'search-index.st')
+def copy_to_content():
     import shutil
+    dest = os.path.join(BASEDIR, 'content', 'search-index.st')
     shutil.copy2(INDEX_FILE, dest)
     print(f"[+] Copied to {dest}")
 
@@ -100,4 +98,4 @@ if __name__ == '__main__':
         sys.exit(1)
     generate_config()
     if build_index():
-        copy_to_extras()
+        copy_to_content()
