@@ -79,13 +79,25 @@ def build_index():
         else:
             print(f"[-] Stork build failed: {result.stderr}")
             print("[!] Install stork: https://github.com/jameslittle230/stork/releases")
+            return False
     except FileNotFoundError:
         print("[!] stork binary not found.")
         print("[!] Install: https://github.com/jameslittle230/stork/releases")
+        return False
+    return True
+
+def copy_to_extras():
+    extras_dir = os.path.join(BASEDIR, 'content', 'extras')
+    os.makedirs(extras_dir, exist_ok=True)
+    dest = os.path.join(extras_dir, 'search-index.st')
+    import shutil
+    shutil.copy2(INDEX_FILE, dest)
+    print(f"[+] Copied to {dest}")
 
 if __name__ == '__main__':
     if not os.path.isdir(OUTPUTDIR):
         print("[-] output/ directory not found. Run 'make html' first.")
         sys.exit(1)
     generate_config()
-    build_index()
+    if build_index():
+        copy_to_extras()
