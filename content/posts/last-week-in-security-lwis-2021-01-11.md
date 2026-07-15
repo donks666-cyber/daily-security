@@ -1,0 +1,60 @@
+Title: Last Week in Security (LWiS) - 2021-01-11
+Date: 2021-01-11 21:20
+Category: LWiS
+Tags: LWiS, Exploits, Tools
+Slug: last-week-in-security-lwis-2021-01-11
+Author: Erik
+Summary: Thread hijack BOF (<a href="https://twitter.com/33y0re" target="_blank">@33y0re</a>), anti-debugging tricks (<a href="https://twitter.com/JustasMasiulis" target="_blank">@JustasMasiulis</a>), leaking private YT videos (<a href="https://twitter.com/xdavidhu" target="_blank">@xdavidhu</a>), SysWhipers2 (<a href="https://twitter.com/Jackson_T" target="_blank">@Jackson_T</a>), Google Titan 🔑 side channel (<a href="https://twitter.com/victorlomne/status/1347204566278942722" target="_blank">@victorlomne</a>), lsass handle reuse (<a href="https://twitter.com/Jean_Maes_1994" target="_blank">@Jean_Maes_1994</a>), and more!
+
+<p>Last Week in Security is a summary of the interesting cybersecurity news, techniques, tools and exploits from the previous week. This post covers 2021-01-04 to 2021-01-11.</p>
+<section id="news">
+<h2>News</h2>
+<ul>
+<li><a href="https://www.zdnet.com/article/nissan-source-code-leaked-online-after-git-repo-misconfiguration/" target="_blank">Nissan source code leaked online after Git repo misconfiguration</a>. The "Git repo misconfiguration" was a Bitbucket server with admin:admin. This is still an issue in 2021. Amazing. For anyone designing self-hostable software, you have to assume people with both expose it to the internet and use the defaults. Don't be <a href="https://stackoverflow.com/questions/38921414/mongodb-what-are-the-default-user-and-password" target="_blank">monogodb</a> (it has changed since). Also, force users to create passwords upon install, and force some amount of strength.</li>
+<li><a href="https://windows-internals.com/cet-on-windows/" target="_blank">R.I.P ROP: CET Internals in Windows 20H1</a>. <a href="https://software.intel.com/sites/default/files/managed/4d/2a/control-flow-enforcement-technology-preview.pdf" target="_blank">Control-flow Enforcement Technology (CET)</a> is an Intel specific (Tiger Lake and newer) shadow stack implementation. This could prove to be a very effective defense against ROP and other control flow hijacking techniques, but like every mitigation that has come before there will be bypasses, and I will be excited to read and report them here.</li>
+<li><a href="https://blog.mozilla.org/security/2021/01/07/encrypted-client-hello-the-future-of-esni-in-firefox/" target="_blank">Encrypted Client Hello: the future of ESNI in Firefox</a>. Firefox 85 replaces Encrypted Server Name Indication (ESNI) with the newer Encrypted Client Hello (ECH) which fixes some issues with ESNI. I am excited for this to roll out for the privacy benefits and the <a href="https://youtu.be/TDg092qe50g" target="_blank">red team uses</a>.</li>
+<li><a href="https://www.theguardian.com/world/2021/jan/05/singapore-says-police-will-be-given-access-to-covid-19-contact-tracing-data" target="_blank">Singapore says police will be given access to Covid-19 contact tracing data</a>. Is anyone surprised?</li>
+<li><a href="https://www.nytimes.com/2021/01/06/us/politics/russia-cyber-hack.html" target="_blank">Widely Used Software Company May Be Entry Point for Huge U.S. Hacking</a>. Some very poor reporting here, as absolutely no evidence is given. This is a speculative opinion piece (at best) that feels like SolarWinds is attempting to shift blame by claiming that they were supply chain attacked. I feel bad for Jet Brains, and without additional evidence the three on the byline should take a hard look at what they accept as credible story.</li>
+</ul>
+</section>
+<section id="techniques">
+<h2>Techniques</h2>
+<ul>
+<li><a href="https://github.com/anantshri/Android_Security" target="_blank">Android_Security</a> is the material for 3 different Android courses (Deep Dive Android, Xtreme Android Hacking, and Android Pentesting) that was recently made public by the author.</li>
+<li><a href="https://labs.sentinelone.com/building-a-custom-malware-analysis-lab-environment/" target="_blank">Building a Custom Malware Analysis Lab Environment</a> walks through the setup of a malware lab using Remnux, and a Windows 10 machine with <a href="https://github.com/SentineLabs/SentinelLabs_RevCore_Tools" target="_blank">SentinelLabs_RevCore_Tools</a>.</li>
+<li><a href="https://ninjalab.io/a-side-journey-to-titan/" target="_blank">A Side Journey to Titan</a>. Ninjalab manages to leak the ECDSA private key from a Google Titan Security Key with 6,000 ECDSA observations. Impressive side-channel hardware hacking!</li>
+<li><a href="https://blog.securehat.co.uk/cobaltstrike/extracting-config-from-cobaltstrike-stager-shellcode" target="_blank">Cobalt Strike Staging and Extracting Configuration Information</a>. Staging exposes your Cobalt Strike server's configuration to anyone who can craft a valid request (and get through your redirector, you are using a redirect aren't you?). Unless you do <a href="https://mp.weixin.qq.com/s/fhcTTWV4Ddz4h9KxHVRcnw" target="_blank">some crazy patching</a> you may be better off disabling staging.</li>
+<li><a href="https://secret.club/2021/01/04/thread-stuff.html" target="_blank">New year, new anti-debug: Don't Thread On Me</a>. Protect your code by ignoring any request to suspend it, the first step in attaching a debugger (usually). Interested to see what other tricks come out of this series.</li>
+<li><a href="https://bugs.xdavidhu.me/google/2021/01/11/stealing-your-private-videos-one-frame-at-a-time/" target="_blank">Stealing Your Private YouTube Videos, One Frame at a Time</a>. Using a separate, but still in scope service, to leak video frames from a private YouTube video. This kind of cleaver thinking - and light "brute forcing" - is what bug bounties are made for!</li>
+<li><a href="https://medium.com/palantir/microsoft-defender-attack-surface-reduction-recommendations-a5c7d41c3cf8" target="_blank">Microsoft Defender Attack Surface Reduction recommendations</a>. Attack Surface Reduction (ASR) are a very under utilized feature of Microsoft Defender. Note: this can be enabled <a href="https://powershell.engineering/2019/06/13/enabling-attack-surface-reduction-rules/" target="_blank">via PowerShell</a> without paying for "Microsoft Defender for Endpoint." Find the GUIDs <a href="https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-atp/attack-surface-reduction" target="_blank">here</a>.</li>
+</ul>
+</section>
+<section id="tools-and-exploits">
+<h2>Tools and Exploits</h2>
+<ul>
+<li><a href="https://github.com/jfmaes/SharpHandler" target="_blank">SharpHandler</a>. AV's really don't like when random programs open handles to lsass (i.e. mimikatz) so this project instead duplicate an already existing handle to lsass. It's in beta, and has to enumerate every userland process to find the lsass handle, so it will need some tuning before its production ready, but this is a great start!</li>
+<li><a href="https://github.com/CoreyD97/BurpCustomizer" target="_blank">BurpCustomizer</a>. Burp Suite 2020.12 replaced the old Look and Feel classes with FlatLaf, an open source Look and Feel class which also supports 3rd party themes developed for the IntelliJ Platform. This extension allows you to use these themes in Burp Suite, and includes a number of bundled themes to try.</li>
+<li><a href="https://alex.studer.dev/2021/01/04/mw41-1" target="_blank">Getting root on a 4G LTE mobile hotspot</a>. This was a fun journey from "I wonder how that works" to writing raw SCSI commands to the device to enable the root shell. Good use of Ghidra and debugging to figure things out.</li>
+<li><a href="https://github.com/google/tamperchrome" target="_blank">tamperchrome</a> (really Tamper Dev) is a browser extension that acts a lot like Burp Proxy. It can intercept and modify HTTP/HTTPS requests and responses directly in the browser. This should be a big help for people getting started with web app testing as it simplifies the process (no certificate to install). It should also work with sites that use certificate pinning, although those are rare outside of mobile apps.</li>
+<li><a href="https://github.com/SharonBrizinov/s3viewer" target="_blank">s3viewer</a> is a free tool for security researchers that lists the content of a publicly open s3 bucket and helps to identify leaking data. The tool allows you to view all the files on a given aws s3 bucket and download selected files and directories. The goal is to identify the owner of the bucket as quickly as possible in order to report that data is leaking from it.</li>
+<li><a href="https://github.com/connormcgarr/cThreadHijack" target="_blank">cThreadHijack</a> is a Beacon Object File (BOF) for remote process injection, via thread hijacking, without spawning a remote thread. cThreadHijack works by injecting raw Beacon shellcode, generated via a user-supplied listener argument, into a remote process, defined by the user-supplied PID argument, via VirtualAllocEx and WriteProcessMemory. A <em>very</em> detailed write up is available <a href="https://connormcgarr.github.io/thread-hijacking/" target="_blank">here</a>.</li>
+<li><a href="https://github.com/outflanknl/FindObjects-BOF" target="_blank">FindObjects-BOF</a> is a Cobalt Strike Beacon Object File (BOF) project which uses direct system calls to enumerate processes for specific modules or process handles. Can be useful for finding processes with the CLR loaded for future spawnto when doing execute-assembly, or for finding a process that has process handle in use (i.e. to lsass.exe).</li>
+<li><a href="https://github.com/vivami/OutlookParasite" target="_blank">OutlookParasite</a> is a method that misuses Outlook Add-in functionality to obtain (unprivileged) persistence using Outlook (or other Office programs). This method also bypasses the "ClickOnce" install pop-up that you'd normally get when installing an unsigned Outlook Add-in and doesn't show up in AutoRuns.</li>
+<li><a href="https://github.com/ihebski/DefaultCreds-cheat-sheet" target="_blank">DefaultCreds-cheat-sheet</a> is the one place for all the default credentials to assist the pentesters during an engagement. This document has a several products default credentials that are gathered from several sources. This looks to be quite a good list of default credentials.</li>
+</ul>
+</section>
+<section id="new-to-me">
+<h2>New to Me</h2>
+<p>This section is for news, techniques, and tools that weren't released last week but are new to me. Perhaps you missed them too!</p>
+<ul>
+<li><a href="https://github.com/jthuraisamy/SysWhispers2" target="_blank">SysWhispers2</a> is a new release of the direct system call library, but this time it avoids static syscall numbers in favor of pulling them out of ntdll.dll.</li>
+<li><a href="https://github.com/intrigueio/intrigue-core" target="_blank">intrigue-core</a> is an open framework for discovering and enumerating the attack surface of organizations. It can be used with a human-in-the-loop running individual tasks, or fully automated through the use of machine files. With a flexible entity model and deep enrichment system, it is the most full-featured open source framework for discovering attack surface. Backed by a commercial company, this is one to watch. Release blog post <a href="https://core.intrigue.io/2021/01/06/intrigue-core-v0-8/" target="_blank">here</a>.</li>
+<li><a href="https://github.com/opencve/opencve" target="_blank">opencve</a> is a platform that alerts you about new vulnerabilities related to the CVE list powered by the <a href="https://nvd.nist.gov/vuln/data-feeds#JSON_FEED" target="_blank">NIST JSON feed</a>. More details at the <a href="https://www.opencve.io/welcome" target="_blank">hosted version</a>.</li>
+</ul>
+<aside class="m-block m-success">
+<h3>Questions or comments?</h3>
+<p>Email: blog (at) badsectorlabs.com (<a href="files/pgp_key.txt">PGP Key</a>)</p>
+<p>Twitter: <a href="https://twitter.com/badsectorlabs" target="_blank">@badsectorlabs</a></p>
+</aside>
+<p>This post is cross-posted on <a href="https://www.sixgen.io/blog" target="_blank">SIXGEN's blog</a>.</p>
+</section>

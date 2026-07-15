@@ -1,0 +1,56 @@
+Title: Last Week in Security (LWiS) - 2021-03-08
+Date: 2021-03-08 23:04
+Category: LWiS
+Tags: LWiS, Exploits, Tools
+Slug: last-week-in-security-lwis-2021-03-08
+Author: Erik
+Summary: Exchange RCE [ProxyLogon] (<a href="https://twitter.com/orange_8361" target="_blank">@orange_8361</a>), Windows DNS RCE [SIGRed] (<a href="https://twitter.com/chompie1337" target="_blank">@chompie1337</a>), C# AV Bypass (<a href="https://twitter.com/ShitSecure" target="_blank">@ShitSecure</a>), Google Chrome LPE (<a href="https://twitter.com/KLINIX5" target="_blank">@KLINIX5</a>), SaltStack API vulns (<a href="https://twitter.com/dozernz" target="_blank">@dozernz</a>), SACL honeypots (<a href="https://twitter.com/jmoosdijk" target="_blank">@jmoosdijk</a>), Universal loader in Go (<a href="https://twitter.com/symbolcrash1" target="_blank">@symbolcrash1</a>), and more!
+
+<p>Last Week in Security is a summary of the interesting cybersecurity news, techniques, tools and exploits from the previous week. This post covers 2021-03-01 to 2021-03-08.</p>
+<section id="news">
+<h2>News</h2>
+<ul>
+<li><a href="https://proxylogon.com/" target="_blank">ProxyLogon</a>. The big news of last week was the unauthenticated remote command execution as SYSTEM on Microsoft Exchange servers that only had port 443 open. This bug chain is impressive, and it was originally found by Orange Tsai of DEVCORE, but exploited by an alleged Chinese APT like crazy in the past few weeks. Two things stand out: 1. Orange Tsai and team went from "Let's look at Exchange" to unauth RCE in 3 months, and 2. Somewhere along the discovery and reporting chain, the bug was likely stolen or leaked. While possible, it is unlikely the APT using this 0day discovered it in parallel with Orange Tsai and then started using it only after it was reported to Microsoft. Further speculation is up to the reader - Krebs has a <a href="https://krebsonsecurity.com/2021/03/a-basic-timeline-of-the-exchange-mass-hack/" target="_blank">a basic timeline of the exchange mass-hack</a>.</li>
+<li><a href="https://blog.cobaltstrike.com/2021/03/03/cobalt-strike-4-3-command-and-control/" target="_blank">Cobalt Strike 4.3 – Command and CONTROL</a>. Industry's favorite commercial command and control framework got an update with a big focus on DNS beacons. While direct support for DNS over HTTPS wasn't included, it is possible to shim it in using <a href="https://dtm.uk/cobalt-strike-dns-direct-egress/" target="_blank">lookups to localhost and cloudflared</a>. Full changes in the <a href="https://www.cobaltstrike.com/releasenotes.txt" target="_blank">release notes</a>.</li>
+<li><a href="https://blog.cobaltstrike.com/2021/03/06/raphaels-transition/" target="_blank">Raphael’s Transition</a>. In other Cobalt Strike news, Raphael Mudge is stepping down after nearly a decade of work on Armitage and Cobalt Strike. It's inspiring to see someone take a good idea dreamt up during a CTF and turn it into a successful business. Enjoy your next adventure Mudge, you've earned it!</li>
+<li><a href="https://eprint.iacr.org/2021/232.pdf" target="_blank">Fast Factoring Integers by SVP Algorithms</a>. I almost didn't include this as the findings have not been demonstrated let alone proven, but "this destroys the RSA cryptosystem" is one hell of a way to end your paper's abstract. I'll be keeping an eye on this one, but don't bump replacing RSA up on your priority list quite yet. Another researcher has <a href="https://github.com/lducas/SchnorrGate" target="_blank">implemented the algorithm</a>, and it isn't the RSA destroyer claimed.</li>
+<li><a href="https://twitter.com/newsoft/status/1362415148393242625" target="_blank">Xerox lawyers prevent con talk</a>. Sadly this is still a thing in 2021. The researcher found bugs in Xerox multifunction printers and responsibly disclosed them, only to have Xerox sic their lawyer hounds on him. The bug descriptions (no PoCs) are available at <a href="https://airbus-seclab.github.io/" target="_blank">Airbus security lab publications</a>.</li>
+</ul>
+</section>
+<section id="techniques">
+<h2>Techniques</h2>
+<ul>
+<li><a href="https://www.graplsecurity.com/post/anatomy-of-an-exploit-rce-with-cve-2020-1350-sigred" target="_blank">Anatomy of an Exploit: RCE with CVE-2020-1350 SIGRed</a>. The SIGRed exploit is an unauthenticated RCE against domain controllers running DNS (on by default) using a malformed DNS SIG response. This is a complete walkthrough of the exploit, plus the first (I believe) public <a href="https://github.com/chompie1337/SIGRed_RCE_PoC" target="_blank">PoC.</a>.</li>
+<li><a href="https://halove23.blogspot.com/2021/03/google-update-service-being-scum.html" target="_blank">Google Update Service being a scum</a>. Windows 10 2009 and later allows for authenticated users to write to the root of C:\. Google Chrome's update service checks for a configuration file at C:\GoogleUpdate.ini. Options in this file can be used to take over arbitrary files on the system. Pair this with <a href="https://github.com/itm4n/UsoDllLoader" target="_blank">UsoDllLoader</a> and get SYSTEM! This bug was reported and closed as "WontFix" since it "requires physical access to a user's machine" (???) and thus will live on.</li>
+<li><a href="https://blog.cloudflare.com/how-to-execute-an-object-file-part-1/" target="_blank">How to execute an object file: Part 1</a>. Like <a href="https://github.com/trustedsec/COFFLoader" target="_blank">COFFLoader</a> (LWiS 2021-02-22), this post explores how to load a compiled but not linked object file. This post focuses on Linux, so if you need Cobalt Strike BOF loading in your post exploitation tool, check out COFFLoader.</li>
+<li><a href="https://www.gosecure.net/blog/2021/03/02/emails-disclosure-on-wordpress/" target="_blank">Emails Disclosure on WordPress</a>. Gravatar avatars are MD5 hashes of emails, which in many cases are trivial to brute force, exposing email addresses of site users and admins.</li>
+<li><a href="https://research.nccgroup.com/2021/03/04/deception-engineering-exploring-the-use-of-windows-service-canaries-against-ransomware/" target="_blank">Deception Engineering: exploring the use of Windows Service Canaries against ransomware</a>. Ransomware commonly will force services related to AV and backups to stop before encrypting files, so the idea behind <a href="https://github.com/nccgroup/KilledProcessCanary" target="_blank">KilledProcessCanary</a> is to alert when any machine in your network has two or more of these fake services stopped. Want to go deeper into this kind of detection? Outflank published <a href="https://outflank.nl/blog/2021/03/03/catching-red-teams-with-honeypots-part-1-local-recon/" target="_blank">catching red teams with honeypots part 1: local recon</a> this week as well.</li>
+<li><a href="https://blog.nviso.eu/2021/03/05/tap-tap-is-this-thing-on-creating-a-notification-service-for-cobalt-strike/" target="_blank">Tap tap… is this thing on? Creating a notification-service for Cobalt-Strike</a>. There is nothing worse than coming back to a teamserver only to see a new beacon that has been calling back for hours with no actions taken. Jean-Francois also handles the sessions problem by providing a headless version that will outlive a disconnected Cobalt Strike GUI.</li>
+</ul>
+</section>
+<section id="tools-and-exploits">
+<h2>Tools and Exploits</h2>
+<ul>
+<li><a href="https://github.com/Binject/universal" target="_blank">universal</a> - This loader provides a unified Go interface for loading shared libraries from memory on Windows, OSX, and Linux. Also included is a cross-platform Call() implementation that lets you call into exported symbols from those libraries without stress. This is a work of art, a universal loader without any C code, or calls to memfd, that even works on the M1 macs. Bravo.</li>
+<li><a href="https://gist.github.com/S3cur3Th1sSh1t/804ff76009c0ed9511a12317a65edcfd" target="_blank">Syscall_PE_Loader.cs</a> is a C# PE cradle with DInvoke Syscalls to avoid hooking and sleeps for the DLL imports. Both trigger a scan, so doing only one won't help. Only needs an amsi.dll patch bypass before using to complete the EDR/AV bypass trifecta. However, apparently simply compiling your own unchanged Cobalt Strike artifact kit is enough to <a href="https://twitter.com/_RastaMouse/status/1368254448674439169" target="_blank">bypass defender</a>.</li>
+<li><a href="https://dozer.nz/posts/saltapi-vulns" target="_blank">SaltStack API vulnerabilities</a>. Just last week we discussed the local SaltStack Minion Local Privilege Escalation, but this is reprise of the RCE from last year. "It took a few hours total to find these after looking at patches for the last set of vulnerabilities." Patches can be goldmines for finding similar, unpatched bugs!</li>
+<li><a href="https://github.com/nccgroup/Wubes" target="_blank">Wubes</a> is like Qubes but for Windows. The idea is to leverage the Windows Sandbox technology to spawn applications in isolation. It currently supports spawning a Windows Sandbox for Firefox.</li>
+<li><a href="https://gist.github.com/sleirsgoevy/35722572b0096f9acfd76a97b5678bed" target="_blank">ipv6-df-3.c</a> is a FreeBSD 9 PoC of the SOCK_RAW vulnerability. Why would this matter? The PS4 runs a modified FreeBSD 9 kernel. More information <a href="https://wololo.net/2021/03/04/ps4-7-55-jailbreak-sleirsgoevy-implements-theflows-hint-on-freebsd-9-poc/" target="_blank">here</a>.</li>
+<li><a href="https://github.com/HoangKien1020/CVE-2021-23132" target="_blank">CVE-2021-23132</a> is a Joomla core (&lt;= 3.9.24) vulnerability in com_media allowed paths that are not intended for image uploads which leads to RCE. This is an authenticated RCE that requires an admin account.</li>
+<li><a href="https://github.com/Mr-Un1k0d3r/EDRs" target="_blank">EDRs</a> contains information about EDRs and the functions they hook in ntdll.dll that can be useful during red team exercise.</li>
+</ul>
+</section>
+<section id="new-to-me">
+<h2>New to Me</h2>
+<p>This section is for news, techniques, and tools that weren't released last week but are new to me. Perhaps you missed them too!</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Rpath" target="_blank">DT_RPATH</a>. On Linux machines, <cite>LD_PRELOAD</cite> has been the go-to for userland "rootkits" that hook every process. However, the lesser known <cite>DT_RPATH</cite> can achieve similar results.</li>
+<li><a href="https://github.com/benjeems/packetStrider" target="_blank">packetStrider</a> for SSH is a packet forensics tool that aims to provide valuable insight into the nature of SSH traffic, shining a light into the corners of SSH network traffic where golden nuggets of information previously lay in the dark. Point it at a pcap and it can tell you things like if host keys were ignored, command line flag usage, and if a session was automated or interactive. Very cool.</li>
+</ul>
+<aside class="m-block m-success">
+<h3>Questions or comments?</h3>
+<p>Email: blog (at) badsectorlabs.com (<a href="files/pgp_key.txt">PGP Key</a>)</p>
+<p>Twitter: <a href="https://twitter.com/badsectorlabs" target="_blank">@badsectorlabs</a></p>
+</aside>
+<p>This post is cross-posted on <a href="https://www.sixgen.io/news" target="_blank">SIXGEN's blog</a>.</p>
+</section>

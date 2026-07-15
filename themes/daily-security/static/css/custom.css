@@ -1,0 +1,155 @@
+/* 去社会安全 custom styles — matching badsectorlabs.com UI */
+
+/* Logo glitch effect — inspired by 0xRead */
+.logo-glitch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    font-size: 3.8rem;
+    letter-spacing: 0.02em;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    line-height: 1.1;
+}
+
+.logo-glitch .logo-shield {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+}
+
+.logo-glitch .logo-cn,
+.logo-glitch .logo-en {
+    display: inline-block;
+    transition: opacity 0.1s ease;
+}
+
+.logo-glitch .logo-en {
+    display: none;
+    font-family: 'Source Code Pro', 'Courier New', monospace;
+    font-size: 3.2rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #ee802f;
+}
+
+.logo-glitch .logo-cn {
+    font-size: 3.2rem;
+    color: #ffffff;
+}
+
+/* Glitch shake animation */
+@keyframes glitch-shake {
+    0%   { transform: translate(0, 0); filter: hue-rotate(0deg); }
+    10%  { transform: translate(-2px, 1px); filter: hue-rotate(90deg); }
+    20%  { transform: translate(2px, -1px); filter: hue-rotate(180deg); }
+    30%  { transform: translate(-1px, -1px); filter: hue-rotate(270deg); }
+    40%  { transform: translate(1px, 2px); filter: hue-rotate(0deg); }
+    50%  { transform: translate(-2px, 0); filter: hue-rotate(90deg); }
+    60%  { transform: translate(2px, 1px); filter: hue-rotate(180deg); }
+    70%  { transform: translate(-1px, -2px); filter: hue-rotate(270deg); }
+    80%  { transform: translate(1px, -1px); filter: hue-rotate(0deg); }
+    90%  { transform: translate(-2px, 1px); filter: hue-rotate(90deg); }
+    100% { transform: translate(0, 0); filter: hue-rotate(0deg); }
+}
+
+@keyframes glitch-flicker {
+    0%, 100% { opacity: 1; }
+    25% { opacity: 0.3; }
+    50% { opacity: 1; }
+    75% { opacity: 0.6; }
+}
+
+.logo-glitch.glitching {
+    animation: glitch-shake 0.4s steps(2) 1;
+}
+
+.logo-glitch.glitching .logo-cn,
+.logo-glitch.glitching .logo-en {
+    animation: glitch-flicker 0.4s steps(2) 1;
+}
+
+/* RGB split shadow during glitch */
+.logo-glitch.glitching .logo-cn {
+    text-shadow:
+        2px 0 #cc0b13,
+        -2px 0 #2f83cc;
+}
+
+.logo-glitch.glitching .logo-en {
+    text-shadow:
+        2px 0 #cc0b13,
+        -2px 0 #2f83cc;
+}
+
+/* Custom header icons (newsletter, RSS) */
+.custom-header-icon {
+    display: inline-block;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.custom-header-icon:hover {
+    opacity: 1;
+}
+
+.custom-header-icon svg {
+    vertical-align: middle;
+}
+
+/* Navbar brand image */
+#m-navbar-brand {
+    text-decoration: none;
+}
+
+#m-navbar-brand img {
+    display: block;
+}
+
+/* Search section spacing */
+.m-container .m-row .m-col-s-12[style*="padding-bottom"] > div:first-child {
+    margin-top: 0.5rem;
+}
+
+/* Stork search results dark theme overrides */
+.stork-output {
+    margin-top: 0.5rem;
+}
+
+.stork-result {
+    background: #2b3138 !important;
+    border-left: 3px solid #ee802f !important;
+}
+
+.stork-title {
+    color: #e6e6e6 !important;
+}
+
+.stork-excerpt {
+    color: #a0a8b0 !important;
+}
+
+.stork-em {
+    background-color: #ee802f !important;
+    color: #ffffff !important;
+}
+
+/* Code blocks */
+.m-code, pre {
+    border-radius: 4px;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Red @mention links in article summaries */
+article header p a {
+    color: #d94039;
+}
+
+
