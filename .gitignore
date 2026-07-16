@@ -7,3 +7,10 @@ venv/
 push_repo.py
 push_repo.sh
 upload_to_github.py
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
