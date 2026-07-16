@@ -1,5 +1,6 @@
 [input]
 base_directory = "/Users/fsociety/code/daily-security/output"
+html_selector = "article"
 
 [[input.files]]
   title = "Last Week in Security (LWiS) - 2022-03-28 | 去社会安全"
@@ -870,21 +871,6 @@ base_directory = "/Users/fsociety/code/daily-security/output"
   title = "Last Week in Security (LWiS) - 2026-02-09 | 去社会安全"
   url = "/posts/2026/02/last-week-in-security-lwis-2026-02-09/"
   path = "posts/2026/02/last-week-in-security-lwis-2026-02-09/index.html"
-
-[[input.files]]
-  title = "知识星球 — 付费课程 | 去社会安全"
-  url = "/posts/2026/07/zsxq/"
-  path = "posts/2026/07/zsxq/index.html"
-
-[[input.files]]
-  title = "欢迎来到去社会安全 | 去社会安全"
-  url = "/posts/2026/07/about/"
-  path = "posts/2026/07/about/index.html"
-
-[[input.files]]
-  title = "知识星球付费模块 TrainSec academy | 去社会安全"
-  url = "/posts/2026/07/trainsec/"
-  path = "posts/2026/07/trainsec/index.html"
 
 [[input.files]]
   title = "Last Week in Security (LWiS) - 2026-01-12 | 去社会安全"
